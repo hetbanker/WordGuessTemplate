@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="502.0" style="-fx-background-color: lightpink;" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WordGuessServer">
+   <children>
+      <Label layoutX="161.0" layoutY="258.0" prefHeight="46.0" prefWidth="240.0" text="Welcome to">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="311.0" text="Word Guess">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <TextField fx:id="portIn" focusTraversable="false" layoutX="166.0" layoutY="164.0" opacity="0.9" promptText="Please enter a Port #" />
+      <Button fx:id="startButton" layoutX="220.0" layoutY="211.0" mnemonicParsing="false" onAction="#StartServer" opacity="0.91" text="Start" />
+      <Button id="helpButton" fx:id="helpButton" layoutX="427.0" layoutY="357.0" mnemonicParsing="false" onAction="#helpScreen" prefHeight="33.0" prefWidth="50.0" stylesheets="@loginStyle.css" />
+      <Label layoutX="403.0" layoutY="334.0" prefHeight="25.0" prefWidth="98.0" text="pss.. Click me" />
+   </children>
+</Pane>

@@ -1,0 +1,13 @@
+#helpButton{
+    -fx-background-image: url(help.png);
+    -fx-background-size: 30px 30px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: lightpink;
+
+}
+
+#loginPane{
+    -fx-background-image: url("hang.jpg");
+    -fx-background-repeat: no-repeat;
+}

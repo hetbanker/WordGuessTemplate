@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextArea layoutX="14.0" layoutY="21.0" prefHeight="317.0" prefWidth="545.0" text="Last Project for CS 342 2020&#10;&#10;HangMan like game where each client guesses at a word&#10;&#10;Team:&#10;Luis Castaneda&#10;Parth Patel&#10;Het Banker&#10;Ria Gupta" />
+   </children>
+</Pane>
