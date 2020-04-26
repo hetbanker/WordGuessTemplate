@@ -33,8 +33,7 @@ public class WordGuessClient extends Application {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("(Client) Word Guess!!!");
 
-		FXMLLoader loader = FXMLLoader.load(getClass().getResource("resources/clientGUI.fxml"));
-		Parent root = loader.load();
+		Parent root = FXMLLoader.load(getClass().getResource("clientGUI.fxml"));
 		
 		Scene scene = new Scene(root,600,600);
 		primaryStage.setScene(scene);
@@ -57,8 +56,8 @@ public class WordGuessClient extends Application {
 		try {
 			// load the game play scene
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("resources/gameplayGUI.fxml"));
-			loader.setController(new GameplayController());
+			loader.setLocation(getClass().getResource("gameplayGUI.fxml"));
+			loader.setController(new GameplayController(ipAddr, port));
 			Parent root = loader.load();
 			Scene scene = new Scene(root, 600, 400);
 
@@ -66,9 +65,6 @@ public class WordGuessClient extends Application {
 			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.show();
-
-			Client clientConnection = new Client(ipAddr, port);
-			clientConnection.start();
 		} catch (Exception e) {
 			System.out.println("Game Play scene not found");
 		}

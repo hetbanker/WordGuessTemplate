@@ -7,7 +7,10 @@
    <children>
       <TextArea layoutX="153.0" layoutY="14.0" prefHeight="60.0" prefWidth="294.0" text="I am to game play screen. &#10;&#10;Still need to work on making me look pretty." />
       <ListView fx:id="messages" layoutX="53.0" layoutY="81.0" prefHeight="293.0" prefWidth="200.0" />
-      <TextField fx:id="guessInput" layoutX="285.0" layoutY="187.0" />
-      <Button fx:id="sendBtn" layoutX="434.0" layoutY="187.0" mnemonicParsing="false" text="Send" />
+      <TextField fx:id="guessInput" layoutX="281.0" layoutY="228.0" />
+      <Button fx:id="sendBtn" layoutX="430.0" layoutY="228.0" mnemonicParsing="false" onAction="#sendToServer" text="Send" />
+      <Button fx:id="chooseAnimals" layoutX="281.0" layoutY="146.0" mnemonicParsing="false" text="Animals" />
+      <Button fx:id="chooseFood" layoutX="369.0" layoutY="146.0" mnemonicParsing="false" text="Food" />
+      <Button fx:id="chooseCities" layoutX="443.0" layoutY="146.0" mnemonicParsing="false" text="Cities" />
    </children>
 </AnchorPane>
