@@ -66,6 +66,8 @@ public class WordGuessServer extends Application {
             }
         });
 	}
+
+	MediaPlayer mediaPlayer;  
 	@FXML
 	public void initialize()
 	{
@@ -74,15 +76,11 @@ public class WordGuessServer extends Application {
 		String path;
 		if(sceneType == "LoginScene")
 		{
-			path = "src/main/resources/english.mp3";
+			path = "src/main/resources/tasty.mp3";
 
 			Media media = new Media(new File(path).toURI().toString());  
-			
-			MediaPlayer mediaPlayer = new MediaPlayer(media);  
-			
+			mediaPlayer = new MediaPlayer(media);
 			mediaPlayer.play();  
-
-
 		}
 		else
 		{
@@ -97,7 +95,7 @@ public class WordGuessServer extends Application {
           
 	}
 
-	@FXML
+    @FXML
     void helpScreen(ActionEvent event) throws IOException {
 		Stage helpWindow = new Stage();
 		Parent newRoot = FXMLLoader.load(getClass().getResource("help.fxml"));
@@ -129,6 +127,7 @@ public class WordGuessServer extends Application {
 		}
 		catch(Exception ie)
 		{
+			System.out.println(ie.getLocalizedMessage());
 			portIn.clear();
 			portIn.setPromptText("Not a valid Port #");
 		}
