@@ -12,7 +12,6 @@ public class newControl{
     private TextField gameStatus = new TextField();
     @FXML
     private ListView<String> playerStatus = new ListView<String>();
-    private List<String> temp;
 	Server serverConnection;
 
     @FXML
@@ -22,12 +21,11 @@ public class newControl{
         serverConnection = new Server(
             data ->{
                 Platform.runLater(()->{
-                    playerStatus.getItems().add(data.toString());
-                    List<String> temp = new ArrayList<String>(playerStatus.getItems());
                     playerStatus.getItems().clear();
-                    for(String i : temp)
+
+                    for(PlayerInfo i : Server.clientInfo)
                     {
-                        playerStatus.getItems().add(i);
+                        playerStatus.getItems().add(i.outString);
                     }
                 });
             },//End of playerStatus Passing
