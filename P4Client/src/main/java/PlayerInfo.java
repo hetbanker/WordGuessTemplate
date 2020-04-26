@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
     int clientNum;
     int numOfGuesses;
     String category;
