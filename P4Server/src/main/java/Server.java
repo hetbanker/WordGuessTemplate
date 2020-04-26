@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 /*
  * Clicker: A: I really get it    B: No idea what you are talking about
  * C: kind of following
@@ -17,13 +20,17 @@ public class Server{
 	int wins = 0;
 	int losses = 0;	
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
+	ArrayList<PlayerInfo> clientInfo = new ArrayList<PlayerInfo>();
+
 	TheServer server;
 	private Consumer<Serializable> callback;
+	private Consumer<Serializable> gameStatus;
 	
 	
-	Server(Consumer<Serializable> call){
-	
+	Server(Consumer<Serializable> call, Consumer<Serializable> inStatus){
+		//TODO: Add the Port variable and replace it in run
 		callback = call;
+		gameStatus = inStatus;
 		server = new TheServer();
 		server.start();
 	}
@@ -33,19 +40,31 @@ public class Server{
 		
 		public void run() {
 		
+			//This is just for the initialization of the server, after this is up,
+			//There's no need to update it anymore, and all logic would go in runMethod of ClientThread
 			try(ServerSocket mysocket = new ServerSocket(5555);){
-		    System.out.println("Server is waiting for a client!");
+			System.out.println("Server is waiting for a client!");
+			
+           //The initialization of the TextField (server)
+ 	       gameStatus.accept("Clients Connected: "+(count -1)+
+ 	       " Wins: "+wins+" Loss: "+losses);
 		  
 			
 		    while(true) {
-		
-				ClientThread c = new ClientThread(mysocket.accept(), count);
-				callback.accept("client has connected to server: " + "client #" + count);
-				clients.add(c);
-				c.start();
-				
-				count++;
-				
+					ClientThread c = new ClientThread(mysocket.accept(), count);
+					gameStatus.accept("client has connected to server: " + "client #" + count);
+					clients.add(c);
+					clientInfo.add(new PlayerInfo());
+					count++;
+					c.start();
+
+					PauseTransition nPause = new PauseTransition(new Duration(2000));
+
+					nPause.setOnFinished(e->{
+						gameStatus.accept("Clients Connected: "+(count -1)+
+						" Wins: "+wins+" Loss: "+losses);
+					});
+					nPause.play();
 			    }
 			}//end of try
 				catch(Exception e) {
@@ -56,7 +75,8 @@ public class Server{
 	
 
 		class ClientThread extends Thread{
-			
+			//String showing Player Information to the server
+			//String =
 		
 			Socket connection;
 			int count;
@@ -66,6 +86,9 @@ public class Server{
 			ClientThread(Socket s, int count){
 				this.connection = s;
 				this.count = count;	
+				//Hello Test
+ 	       		gameStatus.accept("Clients Connected: "+(count)+
+ 	       		" Wins: "+wins+" Loss: "+losses);
 			}
 			
 			public void updateClients(String message) {
@@ -94,7 +117,7 @@ public class Server{
 				 while(true) {
 					    try {
 					    	String data = in.readObject().toString();
-					    	callback.accept("client: " + count + " sent: " + data);
+							callback.accept("client: " + count + " sent: " + data);
 					    	updateClients("client #"+count+" said: "+data);
 					    	
 					    	}
