@@ -20,7 +20,7 @@ public class Server{
 	int wins = 0;
 	int losses = 0;	
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
-	ArrayList<PlayerInfo> clientInfo = new ArrayList<PlayerInfo>();
+	static ArrayList<PlayerInfo> clientInfo = new ArrayList<PlayerInfo>();
 
 	TheServer server;
 	private Consumer<Serializable> callback;
@@ -46,17 +46,19 @@ public class Server{
 			System.out.println("Server is waiting for a client!");
 			
            //The initialization of the TextField (server)
- 	       gameStatus.accept("Clients Connected: "+(count -1)+
+ 	       gameStatus.accept("Clients Connected: "+(count)+
  	       " Wins: "+wins+" Loss: "+losses);
 		  
 			
 		    while(true) {
 					ClientThread c = new ClientThread(mysocket.accept(), count);
-					gameStatus.accept("client has connected to server: " + "client #" + count);
+					gameStatus.accept("!!!! client has connected to server: " + "client #" + count);
+					clientInfo.add(new PlayerInfo(count));
 					clients.add(c);
-					clientInfo.add(new PlayerInfo());
 					count++;
 					c.start();
+
+					callback.accept("");
 
 					PauseTransition nPause = new PauseTransition(new Duration(2000));
 
@@ -86,9 +88,6 @@ public class Server{
 			ClientThread(Socket s, int count){
 				this.connection = s;
 				this.count = count;	
-				//Hello Test
- 	       		gameStatus.accept("Clients Connected: "+(count)+
- 	       		" Wins: "+wins+" Loss: "+losses);
 			}
 			
 			public void updateClients(String message) {
@@ -116,8 +115,10 @@ public class Server{
 					
 				 while(true) {
 					    try {
-					    	String data = in.readObject().toString();
-							callback.accept("client: " + count + " sent: " + data);
+							String data = in.readObject().toString();
+							//TODO: Changed as a Trial
+							callback.accept(data);
+							//callback.accept("client: " + count + " sent: " + data);
 					    	updateClients("client #"+count+" said: "+data);
 					    	
 					    	}
