@@ -60,6 +60,7 @@ public class Client extends Thread {
 
     public void send(PlayerInfo info) {
         try {
+            System.out.println("SOMETHING WENT THROUGH");
             out.writeObject(info);
         } catch (IOException e) {
             System.out.println("Connection to server lost");

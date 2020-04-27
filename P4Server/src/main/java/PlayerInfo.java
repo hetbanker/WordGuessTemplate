@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class PlayerInfo{
+public class PlayerInfo implements Serializable {
     int clientNum;
     int numOfGuesses;
     String category;
@@ -8,6 +9,7 @@ public class PlayerInfo{
     int numWrongGuesses;
     String word2Guess;
     String outString;
+
 
     PlayerInfo(int inNum)
     {
@@ -28,7 +30,7 @@ public class PlayerInfo{
         category = inCategory;
         outString = "Client#: " + clientNum + " Correct Guesses: "+numCorrectGuessses+ 
                         " Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
-                        "Category: "+ category + " Word: "+ word2Guess + " Attemps: "+numAttemps;
+                        "Category: "+ inCategory + " Word: "+ word2Guess + " Attemps: "+numAttemps;
     }
 
 }

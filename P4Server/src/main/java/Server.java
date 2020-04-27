@@ -130,12 +130,7 @@ public class Server{
 							PlayerInfo data = (PlayerInfo)in.readObject();
 							data.clientNum = clientInfo.get(this.count-1).clientNum;
 							clientInfo.set(this.count-1, data);
-							clientInfo.get(0).outString ="HELLO";
 
-							clientInfo.clear();
-
-							System.out.println("LOOK! "+clientInfo.get(count-1).outString);
-							System.out.println("LOOK! "+data.outString);
 							//Located the position in clientInfo using shadowed count
 							callback.accept("");
 							//Update variables accordingly
