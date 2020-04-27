@@ -20,7 +20,7 @@ public class Server{
 	int wins = 0;
 	int losses = 0;	
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
-	static ArrayList<PlayerInfo> clientInfo = new ArrayList<PlayerInfo>();
+	static ArrayList<PlayerInfo> clientInfo;
 
 	TheServer server;
 	private Consumer<Serializable> callback;
@@ -33,6 +33,7 @@ public class Server{
 		gameStatus = inStatus;
 		server = new TheServer();
 		server.start();
+		clientInfo = new ArrayList<PlayerInfo>();
 	}
 	
 	
@@ -57,6 +58,12 @@ public class Server{
 					clients.add(c);
 					count++;
 					c.start();
+
+					//TODO: DEBUGGING PRINT STATEMENT< REMOVE
+					/*
+					if(clientInfo.size() > 1){
+						clientInfo.get(0).outString = "HWLLO";
+					}*/
 
 					callback.accept("");
 
@@ -95,6 +102,7 @@ public class Server{
 					ClientThread t = clients.get(i);
 					try {
 					 t.out.writeObject(message);
+					 t.out.reset();
 					}
 					catch(Exception e) {}
 				}
@@ -111,20 +119,34 @@ public class Server{
 					System.out.println("Streams not open");
 				}
 				
-				updateClients("new client on server: client #"+count);
+				//updateClients("new client on server: client #"+count);
 					
 				 while(true) {
 					    try {
-							String data = in.readObject().toString();
-							//TODO: Changed as a Trial
-							callback.accept(data);
-							//callback.accept("client: " + count + " sent: " + data);
-					    	updateClients("client #"+count+" said: "+data);
+							//String data = in.readObject().toString();
+							//callback.accept(data);
+
+							//Get PlayerInfo .in
+							PlayerInfo data = (PlayerInfo)in.readObject();
+							data.clientNum = clientInfo.get(this.count-1).clientNum;
+							clientInfo.set(this.count-1, data);
+							clientInfo.get(0).outString ="HELLO";
+
+							clientInfo.clear();
+
+							System.out.println("LOOK! "+clientInfo.get(count-1).outString);
+							System.out.println("LOOK! "+data.outString);
+							//Located the position in clientInfo using shadowed count
+							callback.accept("");
+							//Update variables accordingly
+
+							//updateClients("client #"+count+" said: "+data);
+							//TODO: Write the rest of the log for the server
 					    	
 					    	}
 					    catch(Exception e) {
 					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	updateClients("Client #"+count+" has left the server!");
+					    	//updateClients("Client #"+count+" has left the server!");
 					    	clients.remove(this);
 					    	break;
 					    }

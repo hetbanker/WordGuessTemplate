@@ -59,13 +59,14 @@ public class WordGuessClient extends Application {
 			loader.setLocation(getClass().getResource("gameplayGUI.fxml"));
 			loader.setController(new GameplayController(ipAddr, port));
 			Parent root = loader.load();
-			Scene scene = new Scene(root, 600, 400);
+			Scene scene = new Scene(root);
 
 			// get the stage from the source of the ActionEvent and show it
 			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			System.out.println("Game Play scene not found");
 		}
 	}

@@ -25,6 +25,12 @@ public class PlayerInfo implements Serializable {
                         "Category: "+ category + " Word: "+ word2Guess + " Attemps: "+numAttemps;
     }
 
-
+    void setCategory(String inCategory)
+    {
+        category = inCategory;
+        outString = "Client#: " + clientNum + " Correct Guesses: "+numCorrectGuessses+ 
+                        " Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
+                        "Category: "+ inCategory + " Word: "+ word2Guess + " Attemps: "+numAttemps;
+    }
 
 }

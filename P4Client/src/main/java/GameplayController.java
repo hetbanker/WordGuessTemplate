@@ -7,18 +7,19 @@ import javafx.scene.control.TextField;
 
 import java.net.Socket;
 
+/**Parth's Scene Controller */
 public class GameplayController {
     @FXML
     private Button sendBtn;
 
     @FXML
-    private Button chooseAnimals;
+    private Button chooseAnimals = new Button();
 
     @FXML
-    private Button chooseFood;
+    private Button chooseFood = new Button();
 
     @FXML
-    private Button chooseCities;
+    private Button chooseCities = new Button();
 
     @FXML
     private TextField guessInput;
@@ -30,6 +31,9 @@ public class GameplayController {
     private String ipAddr;
     private int port;
     private Client clientConnection;
+
+    //PlayerInfo to be send to the server
+    PlayerInfo plInfo = new PlayerInfo(0);
 
     public GameplayController(String ipAddr, int port) {
         this.ipAddr = ipAddr;
@@ -44,9 +48,9 @@ public class GameplayController {
                         messages.getItems().add(data.toString());
                     });
                 },
-                data->{
+                data1->{
                     Platform.runLater(()->{
-                        String btnNumsStr = data.toString();
+                        String btnNumsStr = data1.toString();
                         String[] nums = btnNumsStr.split("&");
                         for (String s : nums) {
                             if (s.equals("1")) {
@@ -65,25 +69,25 @@ public class GameplayController {
 
     @FXML
     private void sendToServer(ActionEvent event) {
-        String guess = guessInput.getText();
-        clientConnection.send(guess);
+        clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
-        clientConnection.setCategory("Animals");
+        plInfo.setCategory("Animals");
         disableCategoryBtns();
+        clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleFoodChoice(ActionEvent event) {
-        clientConnection.setCategory("Food");
+        plInfo.setCategory("Food");
         disableCategoryBtns();
     }
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
-        clientConnection.setCategory("Cities");
+        plInfo.setCategory("Cities");
         disableCategoryBtns();
     }
 

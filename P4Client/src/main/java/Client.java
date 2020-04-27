@@ -31,7 +31,8 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            socketClient= new Socket(ipAddr, port);
+            //TODO: Temporary changed ipAddr for easy testing
+            socketClient= new Socket("127.0.0.1", port);
             out = new ObjectOutputStream(socketClient.getOutputStream());
             in = new ObjectInputStream(socketClient.getInputStream());
             socketClient.setTcpNoDelay(true);
@@ -57,8 +58,7 @@ public class Client extends Thread {
         this.category = category;
     }
 
-    public void send(String toSend) {
-        PlayerInfo info = new PlayerInfo(0);
+    public void send(PlayerInfo info) {
         try {
             out.writeObject(info);
         } catch (IOException e) {

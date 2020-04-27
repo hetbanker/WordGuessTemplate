@@ -9,7 +9,6 @@ public class PlayerInfo{
     String word2Guess;
     String outString;
 
-
     PlayerInfo(int inNum)
     {
         clientNum = inNum;
@@ -24,6 +23,12 @@ public class PlayerInfo{
                         "Category: "+ category + " Word: "+ word2Guess + " Attemps: "+numAttemps;
     }
 
-
+    void setCategory(String inCategory)
+    {
+        category = inCategory;
+        outString = "Client#: " + clientNum + " Correct Guesses: "+numCorrectGuessses+ 
+                        " Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
+                        "Category: "+ category + " Word: "+ word2Guess + " Attemps: "+numAttemps;
+    }
 
 }
