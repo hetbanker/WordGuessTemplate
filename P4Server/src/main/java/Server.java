@@ -128,7 +128,7 @@ public class Server{
 
 							//Get PlayerInfo .in
 							PlayerInfo data = (PlayerInfo)in.readObject();
-							data.clientNum = clientInfo.get(this.count-1).clientNum;
+							data.setClientNum(clientInfo.get(this.count-1).clientNum);
 							clientInfo.set(this.count-1, data);
 
 							//Located the position in clientInfo using shadowed count

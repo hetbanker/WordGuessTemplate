@@ -20,17 +20,27 @@ public class PlayerInfo implements Serializable {
         numCorrectGuessses = 0;
         numWrongGuesses =0;
         word2Guess = "N/A";
-        outString = "Client#: " + clientNum + " Correct Guesses: "+numCorrectGuessses+ 
-                        " Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
-                        "Category: "+ category + " Word: "+ word2Guess + " Attemps: "+numAttemps;
+        updateOutString();
     }
 
     void setCategory(String inCategory)
     {
         category = inCategory;
-        outString = "Client#: " + clientNum + " Correct Guesses: "+numCorrectGuessses+ 
-                        " Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
-                        "Category: "+ inCategory + " Word: "+ word2Guess + " Attemps: "+numAttemps;
+        updateOutString();
+    }
+
+
+    void setClientNum(int inNum)
+    {
+        clientNum = inNum;
+        updateOutString();
+    }
+
+    void updateOutString()
+    {
+        outString = "Client#: " + clientNum + " |Correct Guesses: "+numCorrectGuessses+ 
+                        " |Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
+                        " |Category: "+ category + " |Word: "+ word2Guess + " |Attemps: "+numAttemps;
     }
 
 }

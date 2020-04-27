@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 import java.net.Socket;
 
-/**Parth's Scene Controller */
+/**Scene Controller */
 public class GameplayController {
     @FXML
     private Button sendBtn;
@@ -83,12 +83,14 @@ public class GameplayController {
     private void handleFoodChoice(ActionEvent event) {
         plInfo.setCategory("Food");
         disableCategoryBtns();
+        clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
         plInfo.setCategory("Cities");
         disableCategoryBtns();
+        clientConnection.send(plInfo);
     }
 
     private void disableCategoryBtns() {
