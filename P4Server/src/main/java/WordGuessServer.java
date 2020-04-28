@@ -28,7 +28,7 @@ public class WordGuessServer extends Application {
     private Button startButton = new Button();
 
     @FXML
-	private TextField portIn = new TextField("TODO: REPLACE");
+	private TextField portIn = new TextField("5555");
 
 
 	//Server Side Variables
@@ -73,6 +73,7 @@ public class WordGuessServer extends Application {
 	{
 
 		//TODO Remove on ServerSide
+		portIn.setText("5555");
 		String path;
 		if(sceneType == "LoginScene")
 		{

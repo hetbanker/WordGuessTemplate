@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayerInfo implements Serializable {
     int clientNum;
@@ -10,7 +12,11 @@ public class PlayerInfo implements Serializable {
     String word2Guess;
     String outString;
 
-
+    ArrayList<String> animal = new ArrayList<String>();
+    ArrayList<String> food = new ArrayList<String>();
+    ArrayList<String> city = new ArrayList<String>();
+ 
+    
     PlayerInfo(int inNum)
     {
         clientNum = inNum;
@@ -21,14 +27,17 @@ public class PlayerInfo implements Serializable {
         numWrongGuesses =0;
         word2Guess = "N/A";
         updateOutString();
-    }
+        animal.add("cat" + "dog" + "lion" + "rabbit");
+        food.add("pizza" + "taco" + "burger" + "pasta");
+        city.add("chicago" + "austin" + "new york" + "las vegas");
+     }
 
     void setCategory(String inCategory)
     {
         category = inCategory;
         updateOutString();
+        sendOutWord();
     }
-
 
     void setClientNum(int inNum)
     {
@@ -41,6 +50,17 @@ public class PlayerInfo implements Serializable {
         outString = "Client#: " + clientNum + " |Correct Guesses: "+numCorrectGuessses+ 
                         " |Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
                         " |Category: "+ category + " |Word: "+ word2Guess + " |Attemps: "+numAttemps;
+    }
+    
+    void sendOutWord()
+    {
+    	Random random = new Random();
+    	if(category == "animal")
+    	{
+    		System.out.println(animal.get(random.nextInt(animal.size())));
+    	}
+    	
+    	
     }
 
 }

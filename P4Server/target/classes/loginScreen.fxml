@@ -17,7 +17,7 @@
             <Font size="39.0" />
          </font>
       </Label>
-      <TextField fx:id="portIn" focusTraversable="false" layoutX="166.0" layoutY="164.0" opacity="0.9" promptText="Please enter a Port #" />
+      <TextField fx:id="portIn" focusTraversable="false" layoutX="166.0" layoutY="164.0" opacity="0.9" />
       <Button fx:id="startButton" layoutX="220.0" layoutY="211.0" mnemonicParsing="false" onAction="#StartServer" opacity="0.91" text="Start" />
       <Button id="helpButton" fx:id="helpButton" layoutX="427.0" layoutY="357.0" mnemonicParsing="false" onAction="#helpScreen" prefHeight="33.0" prefWidth="50.0" stylesheets="@loginStyle.css" />
       <Label layoutX="403.0" layoutY="334.0" prefHeight="25.0" prefWidth="98.0" text="pss.. Click me" />

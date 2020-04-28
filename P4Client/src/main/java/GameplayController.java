@@ -23,7 +23,7 @@ public class GameplayController {
 
     @FXML
     private TextField guessInput;
-
+    
     @FXML
     private ListView<String> messages;
 
@@ -42,6 +42,7 @@ public class GameplayController {
 
     @FXML
     private void initialize() {
+    	
         this.clientConnection = new Client(this.ipAddr, this.port,
                 data->{
                     Platform.runLater(()->{

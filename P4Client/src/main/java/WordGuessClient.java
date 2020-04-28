@@ -1,3 +1,5 @@
+import org.omg.CORBA.INITIALIZE;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -27,6 +29,12 @@ public class WordGuessClient extends Application {
 		launch(args);
 	}
 
+	@FXML
+	private void initialize()
+	{
+		portInput.setText("5555");
+       	ipInput.setText("127.0.0.1");
+	}
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
