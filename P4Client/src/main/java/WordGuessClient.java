@@ -1,4 +1,3 @@
-import org.omg.CORBA.INITIALIZE;
 
 import javafx.application.Application;
 import javafx.application.Platform;
