@@ -1,11 +1,11 @@
-import java.io.ObjectInputStream;
+import java.io.ObjectInputStream; 
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
+
 import java.util.function.Consumer;
 
 import javafx.animation.PauseTransition;
@@ -117,6 +117,7 @@ public class Server{
 					in = new ObjectInputStream(connection.getInputStream());
 					out = new ObjectOutputStream(connection.getOutputStream());
 					connection.setTcpNoDelay(true);	
+					updateClients(clientInfo.get(0));
 				}
 				catch(Exception e) {
 					System.out.println("Streams not open");
@@ -138,7 +139,7 @@ public class Server{
 							//Update variables accordingly
 
 							/**TODO: Debugging Purposes */
-							data.setCategory("ITS Working Bruh");
+							//data.setCategory("ITS Working Bruh");
 							clients.get(this.count-1).out.writeObject(data);
 
 							//TODO: Write the rest of the log for the server
@@ -150,6 +151,8 @@ public class Server{
 							
 							if(data.category.equals("Animals"))
 							{
+								
+
 								System.out.println("Inside animal");
 								System.out.println("Clientinfo" + clientInfo.get(this.count-1).userInput);
 								choices(playerInfo.animal);
@@ -158,12 +161,14 @@ public class Server{
 							
 							if(data.category.equals("Food"))
 							{
-								choices(playerInfo.food);
+								//choices(playerInfo.food);
+								updateClients(playerInfo);
 							}
 							
 							if(data.category.equals("city"))
 							{
-								choices(playerInfo.city);
+								//choices(playerInfo.city);
+								updateClients(playerInfo);
 							}
 							
 					    }

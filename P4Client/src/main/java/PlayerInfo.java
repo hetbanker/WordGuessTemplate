@@ -57,9 +57,14 @@ public class PlayerInfo implements Serializable {
     {
         outString = "Client#: " + clientNum + " |Correct Guesses: "+numCorrectGuessses+ 
                         " |Wrong Guesses: "+ numWrongGuesses + System.lineSeparator() + "   "+
-                        " |Category: "+ category + " |Word: "+ word2Guess + " |Attemps: "+numAttemps;
+                        " |Category: "+ category + " |Character: "+ userletter + " |Attemps: "+numAttemps;
     }
     
  
+    void setUserLetter(String userLetter)
+    {
+    	userletter = userLetter;
+    	updateOutString();
+    }
 
-}
+}     

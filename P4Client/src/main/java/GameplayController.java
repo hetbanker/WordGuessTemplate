@@ -8,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import javafx.scene.control.TextField;
 import java.io.File;
+import java.util.Set;
 
 
 
@@ -17,13 +18,13 @@ public class GameplayController {
     private Button sendBtn;
 
     @FXML
-    private Button chooseAnimals = new Button();
+    private Button chooseAnimals ;
 
     @FXML
-    private Button chooseFood = new Button();
+    private Button chooseFood ;
 
     @FXML
-    private Button chooseCities = new Button();
+    private Button chooseCities ;
 
     @FXML
     private TextField guessInput;
@@ -49,6 +50,8 @@ public class GameplayController {
     private void initialize() {
         /**Lets Get Some Music */
     	try{
+    		
+    		guessInput.setPromptText("Enter a char here: ");
 			String path = "src/main/resources/survive.mp3";
 
 			Media media = new Media(new File(path).toURI().toString());
@@ -96,16 +99,17 @@ public class GameplayController {
 
     @FXML
     private void sendToServer(ActionEvent event) {
-        plInfo.userletter = guessInput.getText();
+    	
+        plInfo.setUserLetter(guessInput.getText());
     	clientConnection.send(plInfo);
-        //guessInput.getText();
+        messages.getItems().add(guessInput.getText());
     }
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
         plInfo.setCategory("Animals");
         disableCategoryBtns();
-
+        messages.getItems().add("Your category is Animals: ");
         clientConnection.send(plInfo);
         
     }
@@ -120,6 +124,8 @@ public class GameplayController {
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
         plInfo.setCategory("Cities");
+        
+        
         disableCategoryBtns();
         clientConnection.send(plInfo);
     }

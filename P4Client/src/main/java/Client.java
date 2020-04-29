@@ -45,7 +45,8 @@ public class Client extends Thread {
         while (true) {
             try {
                 PlayerInfo info = (PlayerInfo) in.readObject();
-                printMessage.accept(info.category);
+                //printMessage.accept(info.category);
+                
                 enableCategories.accept("1&3"); 
             } catch (Exception e) { 
                 System.out.println("\nSomething went wrong\n");
@@ -62,6 +63,7 @@ public class Client extends Thread {
         try {
             System.out.println("SOMETHING WENT THROUGH");
             out.writeObject(info);
+            out.reset();
         } catch (IOException e) {
             System.out.println("Connection to server lost");
         }

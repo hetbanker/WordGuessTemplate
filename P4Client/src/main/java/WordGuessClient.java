@@ -60,6 +60,8 @@ public class WordGuessClient extends Application {
 		ipInput.setText("127.0.0.1");
 
 		try{
+			
+			
 			String path = "src/main/resources/welcome.mp3";
 
 			Media media = new Media(new File(path).toURI().toString());

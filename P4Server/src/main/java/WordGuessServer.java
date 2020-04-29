@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.IOException; 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -76,22 +76,25 @@ public class WordGuessServer extends Application {
 		String path;
 		if(sceneType == "LoginScene")
 		{
-			path = "src/main/resources/tasty.mp3";
-
-			Media media = new Media(new File(path).toURI().toString());  
-			mediaPlayer = new MediaPlayer(media);
-
-			mediaPlayer.play();  
+			/********* Turning this off for now ***************/
+			
+//			path = "src/main/resources/tasty.mp3";
+//
+//			Media media = new Media(new File(path).toURI().toString());  
+//			mediaPlayer = new MediaPlayer(media);
+//
+//			mediaPlayer.play();  
 		}
 		else
 		{
-			path = "src/main/resources/tasty.mp3";
-
-			Media media = new Media(new File(path).toURI().toString());  
-			
-			MediaPlayer mediaPlayer = new MediaPlayer(media);  
-
-			mediaPlayer.play();  
+			/********* Turning this off for now ***************/
+//			path = "src/main/resources/tasty.mp3";
+//
+//			Media media = new Media(new File(path).toURI().toString());  
+//			
+//			MediaPlayer mediaPlayer = new MediaPlayer(media);  
+//
+//			mediaPlayer.play();  
 		}
           
 	}
