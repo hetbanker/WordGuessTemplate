@@ -1,4 +1,5 @@
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -28,12 +31,6 @@ public class WordGuessClient extends Application {
 		launch(args);
 	}
 
-	@FXML
-	private void initialize()
-	{
-		portInput.setText("5555");
-       	ipInput.setText("127.0.0.1");
-	}
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -42,7 +39,7 @@ public class WordGuessClient extends Application {
 
 		Parent root = FXMLLoader.load(getClass().getResource("clientGUI.fxml"));
 		
-		Scene scene = new Scene(root,600,600);
+		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -55,12 +52,30 @@ public class WordGuessClient extends Application {
 		});
 	}
 
-	
+	MediaPlayer mediaPlayer;
+	@FXML
+	public void initialize()
+	{
+		portInput.setText("5555");
+		ipInput.setText("127.0.0.1");
+
+		try{
+			String path = "src/main/resources/welcome.mp3";
+
+			Media media = new Media(new File(path).toURI().toString());
+			mediaPlayer = new MediaPlayer(media);
+			mediaPlayer.play();
+
+		}catch(Exception ie){System.out.println(ie.getLocalizedMessage());}
+		   
+
+	}
 	
 	
 	
 	@FXML
 	private void connectToServer(ActionEvent event) {
+		mediaPlayer.stop();
 		String ipAddr = ipInput.getText();
 		int port = Integer.parseInt(portInput.getText());
 
