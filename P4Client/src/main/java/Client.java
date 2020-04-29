@@ -45,7 +45,7 @@ public class Client extends Thread {
         while (true) {
             try {
                 PlayerInfo info = (PlayerInfo) in.readObject();
-                printMessage.accept(info.outString);
+                printMessage.accept(info.category);
                 enableCategories.accept("1&3"); 
             } catch (Exception e) { 
                 System.out.println("\nSomething went wrong\n");

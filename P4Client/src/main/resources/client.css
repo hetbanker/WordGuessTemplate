@@ -1,0 +1,9 @@
+#backGround{
+    -fx-background-image: url("vaporWave.jpg");
+    -fx-background-size: 758px 498px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#theText{
+}

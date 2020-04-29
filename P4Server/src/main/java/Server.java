@@ -127,8 +127,6 @@ public class Server{
 				
 				 while(true) {
 					    try {
-							//String data = in.readObject().toString();
-							//callback.accept(data);
 
 							//Get PlayerInfo .in
 							PlayerInfo data = (PlayerInfo)in.readObject();
@@ -139,7 +137,10 @@ public class Server{
 							callback.accept("");
 							//Update variables accordingly
 
-							//updateClients("client #"+count+" said: "+data);
+							/**TODO: Debugging Purposes */
+							data.setCategory("ITS Working Bruh");
+							clients.get(this.count-1).out.writeObject(data);
+
 							//TODO: Write the rest of the log for the server
 							
 							System.out.println("Inside the while loop");

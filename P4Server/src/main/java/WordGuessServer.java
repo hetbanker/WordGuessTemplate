@@ -71,7 +71,6 @@ public class WordGuessServer extends Application {
 	@FXML
 	public void initialize()
 	{
-
 		//TODO Remove on ServerSide
 		portIn.setText("5555");
 		String path;
@@ -81,6 +80,7 @@ public class WordGuessServer extends Application {
 
 			Media media = new Media(new File(path).toURI().toString());  
 			mediaPlayer = new MediaPlayer(media);
+
 			mediaPlayer.play();  
 		}
 		else
@@ -90,7 +90,7 @@ public class WordGuessServer extends Application {
 			Media media = new Media(new File(path).toURI().toString());  
 			
 			MediaPlayer mediaPlayer = new MediaPlayer(media);  
-			
+
 			mediaPlayer.play();  
 		}
           
