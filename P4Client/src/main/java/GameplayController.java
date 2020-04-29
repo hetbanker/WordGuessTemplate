@@ -1,11 +1,11 @@
-import javafx.application.Platform;
+import javafx.application.Platform; 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-import java.net.Socket;
+
 
 /**Scene Controller */
 public class GameplayController {
@@ -62,6 +62,7 @@ public class GameplayController {
                                 chooseCities.setDisable(false);
                             }
                         }
+                        
                     });
                 });
 
@@ -70,14 +71,18 @@ public class GameplayController {
 
     @FXML
     private void sendToServer(ActionEvent event) {
-        clientConnection.send(plInfo);
+        plInfo.userletter = guessInput.getText();
+    	clientConnection.send(plInfo);
+        //guessInput.getText();
     }
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
         plInfo.setCategory("Animals");
         disableCategoryBtns();
+
         clientConnection.send(plInfo);
+        
     }
 
     @FXML

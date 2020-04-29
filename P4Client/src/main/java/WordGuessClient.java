@@ -55,6 +55,10 @@ public class WordGuessClient extends Application {
 		});
 	}
 
+	
+	
+	
+	
 	@FXML
 	private void connectToServer(ActionEvent event) {
 		String ipAddr = ipInput.getText();

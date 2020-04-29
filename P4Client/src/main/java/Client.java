@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.IOException; 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -46,8 +46,8 @@ public class Client extends Thread {
             try {
                 PlayerInfo info = (PlayerInfo) in.readObject();
                 printMessage.accept(info.outString);
-                enableCategories.accept("1&3");
-            } catch (Exception e) {
+                enableCategories.accept("1&3"); 
+            } catch (Exception e) { 
                 System.out.println("\nSomething went wrong\n");
                 e.printStackTrace();
             }
