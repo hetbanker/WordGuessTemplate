@@ -181,7 +181,7 @@ public class Server{
 					}
 				}//end of run
 			
-			public  void choices(ArrayList<String> nameHolder)
+			public  void choices(ArrayList<String> nameHolder) 
 			{
 		        System.out.println();
 		        
@@ -203,7 +203,10 @@ public class Server{
 		        for(Integer i =0; i < charsArray.size(); i++)
 		        {
 		        	clientInfo.get(this.count-1).userInput.add('_');
+		        	
 		        	System.out.print(" _ ");
+		        	
+		        	
 		        }
 		        
 		       
@@ -211,17 +214,19 @@ public class Server{
 		        
 		        Boolean flag = false;
 		        
-				System.out.println("\n\nEnter a character: ");
-				String s = clientInfo.get(this.count-1).userletter;
-				char c = s.charAt(0);
+				//System.out.println("\n\nEnter a character: ");
+				
 		        
-				System.out.println("c: " +c);
+				
 				
 		        while(clientInfo.get(this.count-1).userInput.contains('_') && guesses > 0) 
 		        {
 		        	//@SuppressWarnings("resource") 
 					//Scanner charInputScanner = new Scanner(System.in);
 
+		        	String s = clientInfo.get(this.count-1).userletter;
+					char c = s.charAt(0);
+					System.out.println("c: " +c);
 					
 			        for(char letter : charsArray) 
 			        {

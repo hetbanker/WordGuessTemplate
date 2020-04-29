@@ -18,9 +18,14 @@ public class PlayerInfo implements Serializable {
     String word2Guess;
     String outString;
 
-    ArrayList<String> animal = new ArrayList<> (Arrays.asList("robot","dog", "ox", "cow", "sheep", "lion", "rabbit"));
-    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta"));
-    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle"));
+    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit",
+    														  "sloth", "koala", "bear"));
+    
+    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta", 
+    														"curry", "breadsticks","falafel","fries", "burrito" ));
+    
+    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle", "boston",
+    														"atlanta" , "portland", "miami", "dallas"));
  
     ArrayList<Character> userInput;
     
