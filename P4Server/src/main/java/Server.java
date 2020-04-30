@@ -155,6 +155,10 @@ public class Server{
 								currentInfo.setWord2Guess(currentInfo.word2Guess);
 								clients.get(this.count-1).out.writeObject(currentInfo);
 							}
+							else
+							{
+								clients.get(this.count-1).out.writeObject(currentInfo);
+							}
 
 							callback.accept("");
 
@@ -166,8 +170,6 @@ public class Server{
 						}//End of the Try Statement
 						
 					    catch(Exception e) {
-					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	clients.remove(this);
 					    	break;
 					    }
 					}

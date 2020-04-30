@@ -49,10 +49,7 @@ public class Client extends Thread {
                 printMessage.accept("");
                 enableCategories.accept("");
 
-            } catch (Exception e) { 
-                System.out.println("\nSomething went wrong\n");
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         }
     }
 

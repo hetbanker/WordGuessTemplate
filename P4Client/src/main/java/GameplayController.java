@@ -126,8 +126,10 @@ public class GameplayController {
 
     @FXML
     private void sendToServer(ActionEvent event) {
+        plInfo.numOfGuesses -= 1;
         plInfo.userletter = guessInput.getText();
-    	clientConnection.send(plInfo);
+        guessInput.clear();
+        clientConnection.send(plInfo);
     }
 
     @FXML
