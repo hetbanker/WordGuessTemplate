@@ -133,126 +133,46 @@ public class Server{
 							data.setClientNum(clientInfo.get(this.count-1).clientNum);
 							clientInfo.set(this.count-1, data);
 
-							//Located the position in clientInfo using shadowed count
-							callback.accept("");
-							//Update variables accordingly
+							PlayerInfo currentInfo = clientInfo.get(this.count-1);
 
-							/**TODO: Debugging Purposes */
+							/**If the Number of Guesses if 6 (i.e. new category was chosen)
+							 * The Server will now chose a random word that the server needs to 
+							 * guess.
+							*/
+							if(currentInfo.numOfGuesses == 6)
+							{
+								switch(currentInfo.category)
+								{
+									case "Animals":	currentInfo.word2Guess = GameLogic.getRandomWord(currentInfo.animal);
+													break;
+									case "Food":	currentInfo.word2Guess = GameLogic.getRandomWord(currentInfo.food);
+													break;
+									case "Cities":	currentInfo.word2Guess = GameLogic.getRandomWord(currentInfo.city);
+													break;
+								}
+								/**Send out the information so the player knows what's needed next*/
+								currentInfo.backForthMessage = "New Word From "+ currentInfo.category+" was chosen, please proceed";
+								currentInfo.setWord2Guess(currentInfo.word2Guess);
+								clients.get(this.count-1).out.writeObject(currentInfo);
+							}
+
+							callback.accept("");
+
+
+							/**TODO: Debugging Purposes 
 							data.setCategory("ITS Working Bruh");
 							clients.get(this.count-1).out.writeObject(data);
-
-							//TODO: Write the rest of the log for the server
-							
-							System.out.println("Inside the while loop");
-							 
-							System.out.println(data.category);
-							//System.out.println(clientInfo.indexOf(data) + " At index 1");
-							
-							if(data.category.equals("Animals"))
-							{
-								System.out.println("Inside animal");
-								System.out.println("Clientinfo" + clientInfo.get(this.count-1).userInput);
-								choices(playerInfo.animal);
-								updateClients(playerInfo);
-							}
-							
-							if(data.category.equals("Food"))
-							{
-								choices(playerInfo.food);
-							}
-							
-							if(data.category.equals("city"))
-							{
-								choices(playerInfo.city);
-							}
-							
-					    }
+							*/
+						}//End of the Try Statement
+						
 					    catch(Exception e) {
 					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	//updateClients("Client #"+count+" has left the server!");
 					    	clients.remove(this);
 					    	break;
 					    }
 					}
+
 				}//end of run
-			
-			public  void choices(ArrayList<String> nameHolder)
-			{
-		        System.out.println();
-		        
-		        //get random element from the animal array list
-		        Random random = new Random();
-		        String theWordString = nameHolder.get(random.nextInt(nameHolder.size()));
-		        System.out.println("random word is: "+ theWordString);
-		        
-		        //converting theWordString into CharArray
-		        ArrayList<Character> charsArray = new ArrayList<Character>();
-		        for (char c : theWordString.toCharArray()) 
-		        {
-		        	charsArray.add(c);	//splitting the string into array
-		        }
-		        
-		        //clientInfo.get(this.count-1).userInput.size(charsArray.size()); 
-		        
-		        //prints the dashes
-		        for(Integer i =0; i < charsArray.size(); i++)
-		        {
-		        	clientInfo.get(this.count-1).userInput.add('_');
-		        	System.out.print(" _ ");
-		        }
-		        
-		       
-		        int guesses = 6;
-		        
-		        Boolean flag = false;
-		        
-				System.out.println("\n\nEnter a character: ");
-				String s = clientInfo.get(this.count-1).userletter;
-				char c = s.charAt(0);
-		        
-				System.out.println("c: " +c);
-				
-		        while(clientInfo.get(this.count-1).userInput.contains('_') && guesses > 0) 
-		        {
-		        	//@SuppressWarnings("resource") 
-					//Scanner charInputScanner = new Scanner(System.in);
-
-					
-			        for(char letter : charsArray) 
-			        {
-			        	if(letter == c) 
-			        	{
-			        		int x = charsArray.indexOf(letter);
-			        		int y = charsArray.lastIndexOf(c);
-			        		clientInfo.get(this.count-1).userInput.set(x,letter);
-			        		clientInfo.get(this.count-1).userInput.set(y, letter);
-			        		flag=true;
-			        		
-			        	}
-			        	
-			        }
-			       
-			        if(flag == false)
-			        {
-			        	guesses--;
-			        	
-			        } 
-			        
-			        if(flag == true)
-			        {
-			        	flag =false;
-			        }
-		    		for(char printer : clientInfo.get(this.count-1).userInput)
-		    		{
-		    			System.out.print(" " + printer + " ");
-
-		    		}
-			        
-			        System.out.println("  guesses left: " + guesses);
-		        }
-		        
-		        System.out.println("\n\nBye!");
-			}
 			
 		}//end of client thread
 }
