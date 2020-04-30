@@ -7,8 +7,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+
 import java.io.File;
-import java.util.Set;
 
 
 
@@ -18,13 +19,13 @@ public class GameplayController {
     private Button sendBtn;
 
     @FXML
-    private Button chooseAnimals ;
+    private Button chooseAnimals = new Button();
 
     @FXML
-    private Button chooseFood ;
+    private Button chooseFood = new Button();
 
     @FXML
-    private Button chooseCities ;
+    private Button chooseCities = new Button();
 
     @FXML
     private TextField guessInput;
@@ -32,13 +33,23 @@ public class GameplayController {
     @FXML
     private ListView<String> messages = new ListView<String>();
 
+    @FXML
+    private ImageView img1 = new ImageView();
+    @FXML
+    private ImageView img2 = new ImageView();
+    @FXML
+    private ImageView img3 = new ImageView();
+
+    @FXML
+    private TextField messagesFromServer;
+
     // Connection info
     private String ipAddr;
     private int port;
     private Client clientConnection;
 
     //PlayerInfo to be send to the server
-    PlayerInfo plInfo = new PlayerInfo(0);
+    static PlayerInfo plInfo = new PlayerInfo(0);
 
     public GameplayController(String ipAddr, int port) {
         this.ipAddr = ipAddr;
@@ -46,12 +57,11 @@ public class GameplayController {
     }
 
     MediaPlayer mediaPlayer;
+    MediaPlayer notification;
     @FXML
     private void initialize() {
         /**Lets Get Some Music */
     	try{
-    		
-    		guessInput.setPromptText("Enter a char here: ");
 			String path = "src/main/resources/survive.mp3";
 
 			Media media = new Media(new File(path).toURI().toString());
@@ -74,21 +84,38 @@ public class GameplayController {
         this.clientConnection = new Client(this.ipAddr, this.port,
                 data->{
                     Platform.runLater(()->{
-                        messages.getItems().add(data.toString());
+                        messages.getItems().clear();
+                        messages.getItems().add("Category: "+ plInfo.category + System.lineSeparator()+
+                                                "Guesses-Left: "+ plInfo.numOfGuesses + System.lineSeparator()+
+                                                "Wins: " +plInfo.numCorrectGuessses+ System.lineSeparator()+
+                                                "Fails: "+ plInfo.numWrongGuesses + System.lineSeparator() + System.lineSeparator() +
+                                                GameLogicClient.getHiddenWord(plInfo)
+                                                );
                     });
                 },
                 data1->{
                     Platform.runLater(()->{
-                        String btnNumsStr = data1.toString();
-                        String[] nums = btnNumsStr.split("&");
-                        for (String s : nums) {
-                            if (s.equals("1")) {
-                                chooseAnimals.setDisable(false);
-                            } else if (s.equals("2")) {
-                                chooseFood.setDisable(false);
-                            } else if (s.equals("3")) {
-                                chooseCities.setDisable(false);
-                            }
+                        messagesFromServer.setText(plInfo.backForthMessage);
+
+                        //New Word
+                        if(plInfo.numOfGuesses == 6)
+                        {   
+                            //Play a Notification
+                            mediaPlayer.pause();
+			                String path = "src/main/resources/alert.mp3";
+
+			                Media media = new Media(new File(path).toURI().toString());
+                            notification = new MediaPlayer(media);
+
+                            notification.setOnEndOfMedia(new Runnable(){
+                                @Override
+                                public void run() {
+                                    mediaPlayer.play();
+                                }
+                            });
+                            notification.play();
+                            //End of notification
+
                         }
                         
                     });
@@ -99,33 +126,40 @@ public class GameplayController {
 
     @FXML
     private void sendToServer(ActionEvent event) {
-    	
-        plInfo.setUserLetter(guessInput.getText());
-    	clientConnection.send(plInfo);
-        messages.getItems().add(guessInput.getText());
+        plInfo.numOfGuesses -= 1;
+        plInfo.userletter = guessInput.getText();
+        guessInput.clear();
+        clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
+        img2.setImage(null);
+        img3.setImage(null);
         plInfo.setCategory("Animals");
+        plInfo.numOfGuesses = 6;
         disableCategoryBtns();
-        messages.getItems().add("Your category is Animals: ");
+
         clientConnection.send(plInfo);
         
     }
 
     @FXML
     private void handleFoodChoice(ActionEvent event) {
+        img1.setImage(null);
+        img3.setImage(null);
         plInfo.setCategory("Food");
+        plInfo.numOfGuesses = 6;
         disableCategoryBtns();
         clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
+        img1.setImage(null);
+        img2.setImage(null);
         plInfo.setCategory("Cities");
-        
-        
+        plInfo.numOfGuesses = 6;
         disableCategoryBtns();
         clientConnection.send(plInfo);
     }
@@ -134,5 +168,8 @@ public class GameplayController {
         chooseAnimals.setDisable(true);
         chooseFood.setDisable(true);
         chooseCities.setDisable(true);
+
+        sendBtn.setDisable(false);
+        guessInput.setDisable(false);
     }
 }

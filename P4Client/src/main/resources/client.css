@@ -6,4 +6,12 @@
 }
 
 #theText{
+    -fx-text-fill: linear-gradient(to right,red,aqua);
+}
+
+#playScene{
+    -fx-background-image: url("andy.jpg");
+    -fx-background-size: 554px 318px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }

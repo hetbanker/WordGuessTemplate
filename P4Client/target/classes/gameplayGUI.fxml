@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="playScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="318.0" prefWidth="554.0" stylesheets="@client.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea layoutX="153.0" layoutY="14.0" prefHeight="60.0" prefWidth="294.0" text="I am to game play screen. &#10;&#10;Still need to work on making me look pretty." />
-      <ListView fx:id="messages" layoutX="53.0" layoutY="81.0" prefHeight="293.0" prefWidth="200.0" />
-      <TextField fx:id="guessInput" layoutX="281.0" layoutY="228.0" />
-      <Button fx:id="sendBtn" layoutX="430.0" layoutY="228.0" mnemonicParsing="false" onAction="#sendToServer" text="Send" />
-      <Button fx:id="chooseAnimals" layoutX="281.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleAnimalChoice" text="Animals" />
-      <Button fx:id="chooseFood" layoutX="369.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleFoodChoice" text="Food" />
-      <Button fx:id="chooseCities" layoutX="443.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleCitiesChoice" text="Cities" />
+      <ListView fx:id="messages" layoutX="14.0" layoutY="80.0" prefHeight="143.0" prefWidth="228.0" />
+      <TextField fx:id="guessInput" disable="true" focusTraversable="false" layoutX="25.0" layoutY="226.0" prefHeight="25.0" prefWidth="190.0" promptText="Please Enter a Letter (a-z)" style="-fx-alignment: CENTER;" />
+      <Button fx:id="sendBtn" disable="true" layoutX="95.0" layoutY="251.0" mnemonicParsing="false" onAction="#sendToServer" text="Send" />
+      <Button fx:id="chooseAnimals" layoutX="275.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleAnimalChoice" text="Animals" />
+      <Button fx:id="chooseFood" layoutX="383.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleFoodChoice" text="Food" />
+      <Button fx:id="chooseCities" layoutX="468.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleCitiesChoice" text="Cities" />
+      <TextField fx:id="messagesFromServer" focusTraversable="false" layoutX="53.0" layoutY="38.0" prefHeight="25.0" prefWidth="425.0" promptText="Welcome!! " />
+      <ImageView fx:id="img1" fitHeight="84.0" fitWidth="69.0" layoutX="265.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@animal.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img2" fitHeight="84.0" fitWidth="85.0" layoutX="357.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fruit.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img3" fitHeight="85.0" fitWidth="86.0" layoutX="453.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@sky.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
