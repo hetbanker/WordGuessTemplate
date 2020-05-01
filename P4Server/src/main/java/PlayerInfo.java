@@ -29,6 +29,18 @@ public class PlayerInfo implements Serializable {
 
     /**Guessed so far, used for when reaveling words */
     String guessedSoFar;
+
+    /**Array of possible words */
+    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit",
+    														  "donkey", "monkey", "tiger"));
+    
+    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta", "burrito",
+    														"curry", "falafel", "wings", "muffin"));
+    
+    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle",
+    														"boston", "nashville", "atlanta", "austin"));
+ 
+    ArrayList<Character> userInput;
     
     /*To check if the user guessed the word*/
     boolean userGuessedWord;
@@ -36,12 +48,6 @@ public class PlayerInfo implements Serializable {
     boolean choseAnimal;
     boolean choseFood;
     boolean choseCity;
-
-    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit"));
-    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta"));
-    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle"));
- 
-    ArrayList<Character> userInput;
     
     PlayerInfo(int inNum)
     {
@@ -56,13 +62,14 @@ public class PlayerInfo implements Serializable {
         /**End of how many where correct out of 10 */
 
         word2Guess = "N/A";
-        guessedSoFar = "";
 
+        guessedSoFar = "";
+        
         userGuessedWord = false;
         choseAnimal = false;
         choseFood = false;
         choseCity = false;
-        
+
         /**?? */
         userletter = "_";
         userInput = new ArrayList<Character>();
