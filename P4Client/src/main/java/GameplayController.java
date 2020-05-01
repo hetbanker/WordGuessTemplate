@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.File;
 
@@ -196,6 +198,17 @@ public class GameplayController {
         clientConnection.start();
     }
 
+    
+    /** This will only enable when the user inputs something in the textField*/
+    @FXML
+    private void handleEnterPressed (KeyEvent event)
+    {
+        
+            sendBtn.setDisable(false);
+        
+    }
+    
+    
     @FXML
     private void sendToServer(ActionEvent event) {
         if(plInfo.numOfGuesses == 7)
@@ -204,6 +217,7 @@ public class GameplayController {
         }
         plInfo.userletter = guessInput.getText();
         guessInput.clear();
+        sendBtn.setDisable(true);
         clientConnection.send(plInfo);
     }
 
@@ -247,7 +261,7 @@ public class GameplayController {
         chooseFood.setDisable(true);
         chooseCities.setDisable(true);
 
-        sendBtn.setDisable(false);
+        
         guessInput.setDisable(false);
     }
 }

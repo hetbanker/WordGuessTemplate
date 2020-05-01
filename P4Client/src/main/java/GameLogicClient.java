@@ -24,7 +24,7 @@ public class GameLogicClient {
         		if(retString.indexOf('_') == -1)
              	{
              		retString = "'" + retString + "'" + " You guessed the correct word!";
-             		inInfo.userGuessedWord = true;
+             		inInfo.userGuessedWord = true; 
              		inInfo.numCorrectGuessses++;
              		return retString;
              	}

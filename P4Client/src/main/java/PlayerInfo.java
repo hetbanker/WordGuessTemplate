@@ -31,9 +31,14 @@ public class PlayerInfo implements Serializable {
     String guessedSoFar;
 
     /**Array of possible words */
-    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit"));
-    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta"));
-    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle"));
+    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit",
+    														  "donkey", "monkey", "tiger"));
+    
+    ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta", "burrito",
+    														"curry", "falafel", "wings", "muffin"));
+    
+    ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle",
+    														"boston", "nashville", "atlanta", "austin"));
  
     ArrayList<Character> userInput;
     

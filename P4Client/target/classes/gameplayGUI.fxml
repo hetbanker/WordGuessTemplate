@@ -8,7 +8,7 @@
 <AnchorPane id="playScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="318.0" prefWidth="554.0" stylesheets="@client.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="messages" layoutX="14.0" layoutY="80.0" prefHeight="143.0" prefWidth="228.0" />
-      <TextField fx:id="guessInput" disable="true" focusTraversable="false" layoutX="25.0" layoutY="226.0" prefHeight="25.0" prefWidth="190.0" promptText="Please Enter a Letter (a-z)" style="-fx-alignment: CENTER;" />
+      <TextField fx:id="guessInput" onKeyPressed="#handleEnterPressed" disable="true" focusTraversable="false" layoutX="25.0" layoutY="226.0" prefHeight="25.0" prefWidth="190.0" promptText="Please Enter a Letter (a-z)" style="-fx-alignment: CENTER;" />
       <Button fx:id="sendBtn" disable="true" layoutX="95.0" layoutY="251.0" mnemonicParsing="false" onAction="#sendToServer" text="Send" />
       <Button fx:id="chooseAnimals" layoutX="275.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleAnimalChoice" text="Animals" />
       <Button fx:id="chooseFood" layoutX="383.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleFoodChoice" text="Food" />

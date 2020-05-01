@@ -35,7 +35,7 @@ public class WordGuessClient extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("(Client) Word Guess!!!");
+		primaryStage.setTitle("(Client) Word Guess!!!"); 
 
 		Parent root = FXMLLoader.load(getClass().getResource("clientGUI.fxml"));
 		
