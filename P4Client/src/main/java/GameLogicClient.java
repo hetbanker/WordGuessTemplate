@@ -47,24 +47,24 @@ public class GameLogicClient {
     private static String Repeats(char userLetter, String hiddenWord, String word2Guess, PlayerInfo inInfo)
     {
         String retString = "";
-        String nHidden = hiddenWord.replace("\\s+", " ");
-
+        Boolean enteredBoolean = false;
         for(int i = 0; i < word2Guess.length(); i++)
         {
             if(word2Guess.charAt(i) == userLetter)
             {
+                enteredBoolean = true;
                 retString = retString + word2Guess.charAt(i);
             }
            
             else
             {
-                retString = retString + nHidden.charAt(i);
+                retString = retString + hiddenWord.charAt(i);
             }
         }
         
-        if(retString.equals(nHidden))
+        if(enteredBoolean)
         {
-        	inInfo.numOfGuesses -= 1;
+            inInfo.numOfGuesses += 1;
         }
         return retString;
     }

@@ -105,12 +105,13 @@ public class GameplayController {
         this.clientConnection = new Client(this.ipAddr, this.port,
                 data->{
                     Platform.runLater(()->{
+                        String newHiddenWord = GameLogicClient.getHiddenWord(plInfo);
                         messages.getItems().clear();
                         messages.getItems().add("Category: "+ plInfo.category + System.lineSeparator()+
                                                 "Guesses-Left: "+ plInfo.numOfGuesses + System.lineSeparator()+
                                                 "Wins: " +plInfo.numCorrectGuessses+ System.lineSeparator()+
                                                 "Fails: "+ plInfo.numWrongGuesses + System.lineSeparator() + System.lineSeparator() +
-                                                GameLogicClient.getHiddenWord(plInfo)
+                                                newHiddenWord
                                                 );
                         if(plInfo.userGuessedWord == true)
                         {
@@ -211,10 +212,7 @@ public class GameplayController {
     
     @FXML
     private void sendToServer(ActionEvent event) {
-        if(plInfo.numOfGuesses == 7)
-        {
-        	plInfo.numOfGuesses -= 1;
-        }
+        plInfo.numOfGuesses -= 1;
         plInfo.userletter = guessInput.getText();
         guessInput.clear();
         sendBtn.setDisable(true);
