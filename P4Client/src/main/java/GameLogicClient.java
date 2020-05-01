@@ -9,7 +9,7 @@ public class GameLogicClient {
         String retString;
 
         /**New Word */
-        if(inInfo.numOfGuesses == 6)
+        if(inInfo.numOfGuesses == 7)
         {
             retString = "";
             retString = Repeats("_", inInfo.word2Guess.length());
@@ -20,10 +20,16 @@ public class GameLogicClient {
         /**Word Guessing */
         else
         {
-            retString = Repeats(inInfo.userletter.charAt(0), inInfo.guessedSoFar, inInfo.word2Guess);
-            inInfo.guessedSoFar = retString;
-            return retString;
-
+        		retString = Repeats(inInfo.userletter.charAt(0), inInfo.guessedSoFar, inInfo.word2Guess, inInfo);
+        		if(retString.indexOf('_') == -1)
+             	{
+             		retString = "'" + retString + "'" + " You guessed the correct word!";
+             		inInfo.userGuessedWord = true;
+             		inInfo.numCorrectGuessses++;
+             		return retString;
+             	}
+                inInfo.guessedSoFar = retString;
+                return retString;
         }
     }
 
@@ -38,7 +44,7 @@ public class GameLogicClient {
         return retString;
     }
     /**For a String that's already declared*/
-    private static String Repeats(char userLetter, String hiddenWord, String word2Guess)
+    private static String Repeats(char userLetter, String hiddenWord, String word2Guess, PlayerInfo inInfo)
     {
         String retString = "";
         String nHidden = hiddenWord.replace("\\s+", " ");
@@ -49,12 +55,17 @@ public class GameLogicClient {
             {
                 retString = retString + word2Guess.charAt(i);
             }
+           
             else
             {
                 retString = retString + nHidden.charAt(i);
             }
         }
         
+        if(retString.equals(nHidden))
+        {
+        	inInfo.numOfGuesses -= 1;
+        }
         return retString;
     }
             

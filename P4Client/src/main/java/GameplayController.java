@@ -7,10 +7,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
-
 
 
 /**Scene Controller */
@@ -47,6 +48,10 @@ public class GameplayController {
     private String ipAddr;
     private int port;
     private Client clientConnection;
+    
+    ColorAdjust colorAdjust = new ColorAdjust();
+    ColorAdjust colorAdjust1 = new ColorAdjust();
+    
 
     //PlayerInfo to be send to the server
     static PlayerInfo plInfo = new PlayerInfo(0);
@@ -61,11 +66,25 @@ public class GameplayController {
     @FXML
     private void initialize() {
         /**Lets Get Some Music */
-    	try{
+    	try{ 
+    		
+    		guessInput.setOnKeyTyped(t -> {
+
+                if (guessInput.getText().length() > 0) {
+                    int pos = guessInput.getCaretPosition();
+                    guessInput.setText(guessInput.getText(0, 0));
+                    guessInput.positionCaret(pos); //To reposition caret since setText sets it at the beginning by default
+                }
+
+            });
+    		
 			String path = "src/main/resources/survive.mp3";
 
 			Media media = new Media(new File(path).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
+            
+            colorAdjust.setBrightness(-0.65); 
+            colorAdjust1.setBrightness(0); 
 
 			mediaPlayer.setOnEndOfMedia(new Runnable(){
 			
@@ -91,14 +110,68 @@ public class GameplayController {
                                                 "Fails: "+ plInfo.numWrongGuesses + System.lineSeparator() + System.lineSeparator() +
                                                 GameLogicClient.getHiddenWord(plInfo)
                                                 );
-                    });
+                        if(plInfo.userGuessedWord == true)
+                        {
+                        	if(plInfo.choseAnimal == true){
+                        		if(plInfo.choseFood == true){
+                        			 chooseCities.setDisable(false);
+                        			 img3.setEffect(colorAdjust1);
+                        		}
+                        		if(plInfo.choseCity == true){
+                        			 chooseFood.setDisable(false);
+                        			 img2.setEffect(colorAdjust1);
+                        		}
+                        		else {
+                        			chooseCities.setDisable(false);
+                        			chooseFood.setDisable(false);
+                        			img2.setEffect(colorAdjust1);
+                        			img3.setEffect(colorAdjust1);
+								}
+                        	}
+                        	else if (plInfo.choseFood == true)
+                        	{
+                        		if(plInfo.choseAnimal == true){
+                       			 chooseCities.setDisable(false);
+                       			 img3.setEffect(colorAdjust);
+	                       		}
+	                       		if(plInfo.choseCity == true){
+	                       			chooseAnimals.setDisable(false);
+	                       			img1.setEffect(colorAdjust);
+	                       		}
+	                       		else {
+	                       			chooseCities.setDisable(false);
+	                       			chooseAnimals.setDisable(false);
+	                       			img1.setEffect(colorAdjust);
+	                       			img3.setEffect(colorAdjust);
+								}
+                        	}
+                        	else if (plInfo.choseCity == true)
+                        	{
+                        		if(plInfo.choseAnimal == true){
+                       			 chooseFood.setDisable(false);
+                       			 img2.setEffect(colorAdjust);
+	                       		}
+	                       		if(plInfo.choseFood == true){
+	                       			 chooseAnimals.setDisable(false);
+	                       			 img1.setEffect(colorAdjust);
+	                       		}
+	                       		else {
+	                       			chooseAnimals.setDisable(false);
+	                       			chooseFood.setDisable(false);
+	                       			img1.setEffect(colorAdjust);
+	                       			img2.setEffect(colorAdjust);
+								}
+                        	}
+                        }
+                    }); 
                 },
+                
                 data1->{
                     Platform.runLater(()->{
                         messagesFromServer.setText(plInfo.backForthMessage);
 
                         //New Word
-                        if(plInfo.numOfGuesses == 6)
+                        if(plInfo.numOfGuesses == 7)
                         {   
                             //Play a Notification
                             mediaPlayer.pause();
@@ -115,18 +188,20 @@ public class GameplayController {
                             });
                             notification.play();
                             //End of notification
-
                         }
                         
                     });
                 });
-
+        
         clientConnection.start();
     }
 
     @FXML
     private void sendToServer(ActionEvent event) {
-        plInfo.numOfGuesses -= 1;
+        if(plInfo.numOfGuesses == 7)
+        {
+        	plInfo.numOfGuesses -= 1;
+        }
         plInfo.userletter = guessInput.getText();
         guessInput.clear();
         clientConnection.send(plInfo);
@@ -134,10 +209,11 @@ public class GameplayController {
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
-        img2.setImage(null);
-        img3.setImage(null);
+        img2.setEffect(colorAdjust);
+        img3.setEffect(colorAdjust);
         plInfo.setCategory("Animals");
-        plInfo.numOfGuesses = 6;
+        plInfo.numOfGuesses = 7;
+        plInfo.choseAnimal = true;
         disableCategoryBtns();
 
         clientConnection.send(plInfo);
@@ -146,20 +222,22 @@ public class GameplayController {
 
     @FXML
     private void handleFoodChoice(ActionEvent event) {
-        img1.setImage(null);
-        img3.setImage(null);
+        img1.setEffect(colorAdjust);
+        img3.setEffect(colorAdjust);
         plInfo.setCategory("Food");
-        plInfo.numOfGuesses = 6;
+        plInfo.numOfGuesses = 7;
+        plInfo.choseFood = true;
         disableCategoryBtns();
         clientConnection.send(plInfo);
     }
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
-        img1.setImage(null);
-        img2.setImage(null);
+        img1.setEffect(colorAdjust);
+        img2.setEffect(colorAdjust);
         plInfo.setCategory("Cities");
-        plInfo.numOfGuesses = 6;
+        plInfo.numOfGuesses = 7;
+        plInfo.choseCity = true;
         disableCategoryBtns();
         clientConnection.send(plInfo);
     }

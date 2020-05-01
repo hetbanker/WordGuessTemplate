@@ -67,11 +67,7 @@ public class WordGuessClient extends Application {
 			mediaPlayer.play();
 
 		}catch(Exception ie){System.out.println(ie.getLocalizedMessage());}
-		   
-
 	}
-	
-	
 	
 	@FXML
 	private void connectToServer(ActionEvent event) {

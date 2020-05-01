@@ -29,8 +29,15 @@ public class PlayerInfo implements Serializable {
 
     /**Guessed so far, used for when reaveling words */
     String guessedSoFar;
+    
+    /*To check if the user guessed the word*/
+    boolean userGuessedWord;
+    
+    boolean choseAnimal;
+    boolean choseFood;
+    boolean choseCity;
 
-    ArrayList<String> animal = new ArrayList<> (Arrays.asList("robot","dog", "ox", "cow", "sheep", "lion", "rabbit"));
+    ArrayList<String> animal = new ArrayList<> (Arrays.asList("dog", "ox", "cow", "sheep", "lion", "rabbit"));
     ArrayList<String> food = new ArrayList<> (Arrays.asList("pizza", "taco", "burger", "pasta"));
     ArrayList<String> city = new ArrayList<> (Arrays.asList("chicago", "austin", "denver", "seattle"));
  
@@ -51,6 +58,11 @@ public class PlayerInfo implements Serializable {
         word2Guess = "N/A";
         guessedSoFar = "";
 
+        userGuessedWord = false;
+        choseAnimal = false;
+        choseFood = false;
+        choseCity = false;
+        
         /**?? */
         userletter = "_";
         userInput = new ArrayList<Character>();
