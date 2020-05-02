@@ -76,10 +76,9 @@ public class GameplayController {
     		
     		guessInput.setOnKeyTyped(t -> {
 
-                if (guessInput.getText().length() > 0) {
-                    int pos = guessInput.getCaretPosition();
-                    guessInput.setText(guessInput.getText(0, 0));
-                    guessInput.positionCaret(pos); //To reposition caret since setText sets it at the beginning by default
+                if (guessInput.getText().length() > 1) {
+                    guessInput.clear();
+                    guessInput.setPromptText("Only one letter please.");
                 }
 
             });
