@@ -76,9 +76,15 @@ public class GameplayController {
     		
     		guessInput.setOnKeyTyped(t -> {
 
+<<<<<<< HEAD
                 if (guessInput.getText().length() > 0) {
                     guessInput.clear();
                     guessInput.setPromptText("Only one letter please");
+=======
+                if (guessInput.getText().length() > 1) {
+                    guessInput.clear();
+                    guessInput.setPromptText("Only one letter please.");
+>>>>>>> e702fac2a590287f5738ccc2ea5d0db94dc42de0
                 }
 
             });
