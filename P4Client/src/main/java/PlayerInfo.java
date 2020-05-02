@@ -9,6 +9,9 @@ public class PlayerInfo implements Serializable {
 	 */
     private static final long serialVersionUID = 1L;
 
+    /**Indicate wether the player needs a new word */
+    Boolean needsWord;
+
     /**Current number of guesses*/
 	int clientNum;
     int numOfGuesses;
@@ -51,6 +54,7 @@ public class PlayerInfo implements Serializable {
     
     PlayerInfo(int inNum)
     {
+
         clientNum = inNum;
         numOfGuesses = 0;
         category = "N/A";

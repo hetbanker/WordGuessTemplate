@@ -110,6 +110,7 @@ public class GameplayController {
                 data->{
                     Platform.runLater(()->{
                         String newHiddenWord = GameLogicClient.getHiddenWord(plInfo);
+                        handleImages();
                         messages.getItems().clear();
                         messages.getItems().add("Category: "+ plInfo.category + System.lineSeparator()+
                                                 "Guesses-Left: "+ plInfo.numOfGuesses + System.lineSeparator()+
@@ -117,17 +118,16 @@ public class GameplayController {
                                                 "Fails: "+ plInfo.numWrongGuesses + System.lineSeparator() + System.lineSeparator() +
                                                 newHiddenWord
                                                 );
-                        handleImages();
                     }); 
                 },
                 
                 data1->{
                     Platform.runLater(()->{
-                        messagesFromServer.setText(plInfo.backForthMessage);
 
                         //New Word
-                        if(plInfo.numOfGuesses == 7)
+                        if(plInfo.needsWord)
                         {   
+                            messagesFromServer.setText(plInfo.backForthMessage);
                             //Play a Notification
                             mediaPlayer.pause();
 			                String path = "src/main/resources/alert.mp3";
@@ -143,6 +143,7 @@ public class GameplayController {
                             });
                             notification.play();
                             //End of notification
+                            plInfo.needsWord = false;
                         }
                         
                     });
@@ -173,6 +174,7 @@ public class GameplayController {
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
+        plInfo.needsWord = true;
         plInfo.userGuessedWord = false;
         img2.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
@@ -187,6 +189,7 @@ public class GameplayController {
 
     @FXML
     private void handleFoodChoice(ActionEvent event) {
+        plInfo.needsWord = true;
         plInfo.userGuessedWord = false;
         img1.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
@@ -199,6 +202,7 @@ public class GameplayController {
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
+        plInfo.needsWord = true;
         plInfo.userGuessedWord = false;
         img1.setEffect(colorAdjust);
         img2.setEffect(colorAdjust);
@@ -216,26 +220,37 @@ public class GameplayController {
 
         
         guessInput.setDisable(false);
+        sendBtn.setDisable(false);
     }
 
+    /**This function will check if the player guessed the correct word
+     * If yes, then images and buttons are adjusted appropriately.
+     * 
+     * It also check that the player still has guesses available, if not the images and
+     * buttons are also adjusted.
+     */
     void handleImages() {
 
+        //When the player chose the right word
         if (plInfo.userGuessedWord == true) {
             /**Add the corrently guessed category onto our Array */
             if(plInfo.choseAnimal)
             {
+                plInfo.animal.remove(plInfo.word2Guess);
                 correctlyGuessedCategories.add("Animal");
                 img1.setEffect(colorAdjust);
                 plInfo.choseAnimal = false;
             }
             else if(plInfo.choseFood)
             {
+                plInfo.food.remove(plInfo.word2Guess);
                 correctlyGuessedCategories.add("Food");
                 img2.setEffect(colorAdjust);
                 plInfo.choseFood = false;
             }
             else if(plInfo.choseCity)
             {
+                plInfo.city.remove(plInfo.word2Guess);
                 correctlyGuessedCategories.add("Cities");
                 img3.setEffect(colorAdjust);
                 plInfo.choseCity = false;
@@ -258,6 +273,110 @@ public class GameplayController {
                 chooseCities.setDisable(false);
                 img3.setEffect(colorAdjust1);
             }
-        } 
+
+            plInfo.numCorrectGuessses += 1;
+            //The player won the game
+            if(plInfo.numCorrectGuessses == 3)
+            {
+                mediaPlayer.pause();
+                messagesFromServer.setText("You WIN Celebrate!");
+                plInfo.updateOutString();
+                playNotification("celebrate.mp3");
+            }
+            else 
+            {
+                // Let the player know he guesssed correctly
+                messagesFromServer.setText("YOU GOT ONE WORD BUD!");
+                plInfo.updateOutString();
+                playNotification("upgrade.mp3");
+            }
+
+            plInfo.numWrongGuesses = 0;
+            plInfo.updateOutString();
+
+        } //End of the Player choosing the right word
+
+        //When the player has run out of Guesses
+        else if(plInfo.numOfGuesses <= 0)
+        {
+            plInfo.numWrongGuesses += 1;
+
+            if(!correctlyGuessedCategories.contains("Animal") && plInfo.numWrongGuesses != 3)
+            {
+                chooseAnimals.setDisable(false);
+                img1.setEffect(colorAdjust1);
+            }
+            if(!correctlyGuessedCategories.contains("Food") && plInfo.numWrongGuesses != 3)
+            {
+                chooseFood.setDisable(false);
+                img2.setEffect(colorAdjust1);
+            }
+            if(!correctlyGuessedCategories.contains("Cities") && plInfo.numWrongGuesses != 3)
+            {
+                chooseCities.setDisable(false);
+                img3.setEffect(colorAdjust1);
+            }
+
+
+
+            //Player Loses
+            if(plInfo.numWrongGuesses == 3)
+            {
+                mediaPlayer.stop();
+                messagesFromServer.setText("RIP_ You Lose ;(");
+                plInfo.updateOutString();
+                guessInput.setDisable(true);
+                playLost();
+                sendBtn.setDisable(true);
+                img1.setEffect(colorAdjust);
+                img2.setEffect(colorAdjust);
+                img3.setEffect(colorAdjust);
+            }   
+            else
+            {
+                mediaPlayer.pause();
+                messagesFromServer.setText("Sorry, that's wrong ;(");
+                plInfo.updateOutString();
+                playNotification("downgrade.mp3");
+                plInfo.numOfGuesses = 7;
+
+                guessInput.setDisable(true);
+                sendBtn.setDisable(true);
+            }
+
+        }//End of when the player has run out of guesses
     }
+
+    /**Play notification: A function meant to facilitate the act of letting the player
+     * Know though sound
+     */
+
+     private void playNotification(String musicFile)
+     {
+        mediaPlayer.pause();
+        String path = "src/main/resources/"+musicFile;
+
+        Media media = new Media(new File(path).toURI().toString());
+        notification = new MediaPlayer(media);
+
+        notification.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+            }
+        });
+
+        notification.play();
+
+     }
+
+     private void playLost()
+     {
+        String path = "src/main/resources/dark.mp3";
+
+        Media media = new Media(new File(path).toURI().toString());
+        notification = new MediaPlayer(media);
+
+        notification.play();
+     }
 }
