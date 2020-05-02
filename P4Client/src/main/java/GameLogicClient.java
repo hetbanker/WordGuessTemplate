@@ -61,6 +61,11 @@ public class GameLogicClient {
             }
         }
         
+        if(!enteredBoolean)
+        {
+        	retString = retString + " OOP's Wrong Guess!!";
+        }
+        
         if(enteredBoolean)
         {
             inInfo.numOfGuesses += 1;
