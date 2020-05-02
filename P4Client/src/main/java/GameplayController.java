@@ -179,7 +179,7 @@ public class GameplayController {
         img2.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
         plInfo.setCategory("Animals");
-        plInfo.numOfGuesses = 7;
+        plInfo.numOfGuesses = 6;
         plInfo.choseAnimal = true;
         disableCategoryBtns();
 
@@ -194,7 +194,7 @@ public class GameplayController {
         img1.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
         plInfo.setCategory("Food");
-        plInfo.numOfGuesses = 7;
+        plInfo.numOfGuesses = 6;
         plInfo.choseFood = true;
         disableCategoryBtns();
         clientConnection.send(plInfo);
@@ -207,7 +207,7 @@ public class GameplayController {
         img1.setEffect(colorAdjust);
         img2.setEffect(colorAdjust);
         plInfo.setCategory("Cities");
-        plInfo.numOfGuesses = 7;
+        plInfo.numOfGuesses = 6;
         plInfo.choseCity = true;
         disableCategoryBtns();
         clientConnection.send(plInfo);
@@ -317,8 +317,6 @@ public class GameplayController {
                 img3.setEffect(colorAdjust1);
             }
 
-
-
             //Player Loses
             if(plInfo.numWrongGuesses == 3)
             {
@@ -338,7 +336,7 @@ public class GameplayController {
                 messagesFromServer.setText("Sorry, that's wrong ;(");
                 plInfo.updateOutString();
                 playNotification("downgrade.mp3");
-                plInfo.numOfGuesses = 7;
+                plInfo.numOfGuesses = 6;
 
                 guessInput.setDisable(true);
                 sendBtn.setDisable(true);

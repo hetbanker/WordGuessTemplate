@@ -139,7 +139,7 @@ public class Server{
 							 * The Server will now chose a random word that the server needs to 
 							 * guess.
 							*/
-							if(currentInfo.numOfGuesses == 7)
+							if(currentInfo.numOfGuesses == 6)
 							{
 								switch(currentInfo.category)
 								{

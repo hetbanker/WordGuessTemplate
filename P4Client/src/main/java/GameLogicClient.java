@@ -9,7 +9,7 @@ public class GameLogicClient {
         String retString;
 
         /**New Word */
-        if(inInfo.numOfGuesses == 7)
+        if(inInfo.numOfGuesses == 6)
         {
             retString = "";
             retString = Repeats("_", inInfo.word2Guess.length());
