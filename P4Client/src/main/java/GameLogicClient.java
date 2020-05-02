@@ -20,15 +20,14 @@ public class GameLogicClient {
         /**Word Guessing */
         else
         {
-        		retString = Repeats(inInfo.userletter.charAt(0), inInfo.guessedSoFar, inInfo.word2Guess, inInfo);
-        		if(retString.indexOf('_') == -1)
-             	{
-             		retString = "'" + retString + "'" + " You guessed the correct word!";
-             		inInfo.userGuessedWord = true; 
-             		inInfo.numCorrectGuessses++;
-             		return retString;
-             	}
+                retString = Repeats(inInfo.userletter.charAt(0), inInfo.guessedSoFar, inInfo.word2Guess, inInfo);
                 inInfo.guessedSoFar = retString;
+
+        		if(inInfo.guessedSoFar.equals(inInfo.word2Guess))
+             	{
+                     inInfo.userGuessedWord = true;
+                 }
+
                 return retString;
         }
     }

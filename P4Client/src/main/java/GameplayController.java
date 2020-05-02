@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 /**Scene Controller */
@@ -45,6 +46,9 @@ public class GameplayController {
 
     @FXML
     private TextField messagesFromServer;
+
+    /**This array will be used for when it comes time to reenable buttons. Only the categories that are not present will be added */
+    ArrayList<String> correctlyGuessedCategories = new ArrayList<String> ();
 
     // Connection info
     private String ipAddr;
@@ -113,59 +117,7 @@ public class GameplayController {
                                                 "Fails: "+ plInfo.numWrongGuesses + System.lineSeparator() + System.lineSeparator() +
                                                 newHiddenWord
                                                 );
-                        if(plInfo.userGuessedWord == true)
-                        {
-                        	if(plInfo.choseAnimal == true){
-                        		if(plInfo.choseFood == true){
-                        			 chooseCities.setDisable(false);
-                        			 img3.setEffect(colorAdjust1);
-                        		}
-                        		if(plInfo.choseCity == true){
-                        			 chooseFood.setDisable(false);
-                        			 img2.setEffect(colorAdjust1);
-                        		}
-                        		else {
-                        			chooseCities.setDisable(false);
-                        			chooseFood.setDisable(false);
-                        			img2.setEffect(colorAdjust1);
-                        			img3.setEffect(colorAdjust1);
-								}
-                        	}
-                        	else if (plInfo.choseFood == true)
-                        	{
-                        		if(plInfo.choseAnimal == true){
-                       			 chooseCities.setDisable(false);
-                       			 img3.setEffect(colorAdjust);
-	                       		}
-	                       		if(plInfo.choseCity == true){
-	                       			chooseAnimals.setDisable(false);
-	                       			img1.setEffect(colorAdjust);
-	                       		}
-	                       		else {
-	                       			chooseCities.setDisable(false);
-	                       			chooseAnimals.setDisable(false);
-	                       			img1.setEffect(colorAdjust);
-	                       			img3.setEffect(colorAdjust);
-								}
-                        	}
-                        	else if (plInfo.choseCity == true)
-                        	{
-                        		if(plInfo.choseAnimal == true){
-                       			 chooseFood.setDisable(false);
-                       			 img2.setEffect(colorAdjust);
-	                       		}
-	                       		if(plInfo.choseFood == true){
-	                       			 chooseAnimals.setDisable(false);
-	                       			 img1.setEffect(colorAdjust);
-	                       		}
-	                       		else {
-	                       			chooseAnimals.setDisable(false);
-	                       			chooseFood.setDisable(false);
-	                       			img1.setEffect(colorAdjust);
-	                       			img2.setEffect(colorAdjust);
-								}
-                        	}
-                        }
+                        handleImages();
                     }); 
                 },
                 
@@ -221,6 +173,7 @@ public class GameplayController {
 
     @FXML
     private void handleAnimalChoice(ActionEvent event) {
+        plInfo.userGuessedWord = false;
         img2.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
         plInfo.setCategory("Animals");
@@ -234,6 +187,7 @@ public class GameplayController {
 
     @FXML
     private void handleFoodChoice(ActionEvent event) {
+        plInfo.userGuessedWord = false;
         img1.setEffect(colorAdjust);
         img3.setEffect(colorAdjust);
         plInfo.setCategory("Food");
@@ -245,6 +199,7 @@ public class GameplayController {
 
     @FXML
     private void handleCitiesChoice(ActionEvent event) {
+        plInfo.userGuessedWord = false;
         img1.setEffect(colorAdjust);
         img2.setEffect(colorAdjust);
         plInfo.setCategory("Cities");
@@ -261,5 +216,48 @@ public class GameplayController {
 
         
         guessInput.setDisable(false);
+    }
+
+    void handleImages() {
+
+        if (plInfo.userGuessedWord == true) {
+            /**Add the corrently guessed category onto our Array */
+            if(plInfo.choseAnimal)
+            {
+                correctlyGuessedCategories.add("Animal");
+                img1.setEffect(colorAdjust);
+                plInfo.choseAnimal = false;
+            }
+            else if(plInfo.choseFood)
+            {
+                correctlyGuessedCategories.add("Food");
+                img2.setEffect(colorAdjust);
+                plInfo.choseFood = false;
+            }
+            else if(plInfo.choseCity)
+            {
+                correctlyGuessedCategories.add("Cities");
+                img3.setEffect(colorAdjust);
+                plInfo.choseCity = false;
+            }
+
+            /**Now that the corrently guessed category is in the array, enable all other things not yet in the Array */
+
+            if(!correctlyGuessedCategories.contains("Animal"))
+            {
+                chooseAnimals.setDisable(false);
+                img1.setEffect(colorAdjust1);
+            }
+            if(!correctlyGuessedCategories.contains("Food"))
+            {
+                chooseFood.setDisable(false);
+                img2.setEffect(colorAdjust1);
+            }
+            if(!correctlyGuessedCategories.contains("Cities"))
+            {
+                chooseCities.setDisable(false);
+                img3.setEffect(colorAdjust1);
+            }
+        } 
     }
 }
