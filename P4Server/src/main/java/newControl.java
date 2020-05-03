@@ -32,9 +32,6 @@ public class newControl{
                     gameStatus.setText(data1.toString());
                 });
             }//End of gameStatus Passing
-
-            //TODO: Modify Server class to take in a port Number and the
-            //gamestatus field.
         );      
     }
 }

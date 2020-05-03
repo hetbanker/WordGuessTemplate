@@ -73,14 +73,8 @@ public class PlayerInfo implements Serializable {
         choseFood = false;
         choseCity = false;
 
-        /**?? */
-        userletter = "_";
-        userInput = new ArrayList<Character>();
-
-
         updateOutString();
-        
- 
+    
      }
 
     void setCategory(String inCategory)
