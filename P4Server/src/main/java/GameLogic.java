@@ -25,10 +25,7 @@ public class GameLogic {
 
             return retString;
         }
-
-        /**TODO: Current Word */
-
-        return ""; //Place Holder
+        return ""; 
     }
 
 }

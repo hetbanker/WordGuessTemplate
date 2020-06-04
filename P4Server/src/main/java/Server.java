@@ -1,20 +1,14 @@
-import java.io.ObjectInputStream;
+import java.io.ObjectInputStream; 
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 import java.util.function.Consumer;
 
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
-/*
- * Clicker: A: I really get it    B: No idea what you are talking about
- * C: kind of following
- */
 
 public class Server{
 
@@ -30,7 +24,7 @@ public class Server{
 	
 	
 	Server(Consumer<Serializable> call, Consumer<Serializable> inStatus){
-		//TODO: Add the Port variable and replace it in run
+		
 		callback = call;
 		gameStatus = inStatus;
 		server = new TheServer();
@@ -49,9 +43,7 @@ public class Server{
 			System.out.println("Server is waiting for a client!");
 			
            //The initialization of the TextField (server)
- 	       gameStatus.accept("Clients Connected: "+(count)+
- 	       " Wins: "+wins+" Loss: "+losses);
-		  
+ 	       gameStatus.accept("Clients Connected: "+(count-1));
 			
 		    while(true) {
 					ClientThread c = new ClientThread(mysocket.accept(), count);
@@ -61,19 +53,12 @@ public class Server{
 					count++;
 					c.start();
 
-					//TODO: DEBUGGING PRINT STATEMENT< REMOVE
-					/*
-					if(clientInfo.size() > 1){
-						clientInfo.get(0).outString = "HWLLO";
-					}*/
-
 					callback.accept("");
 
 					PauseTransition nPause = new PauseTransition(new Duration(2000));
 
 					nPause.setOnFinished(e->{
-						gameStatus.accept("Clients Connected: "+(count -1)+
-						" Wins: "+wins+" Loss: "+losses);
+						gameStatus.accept("Clients Connected: "+(count -1));
 					});
 					nPause.play();
 			    }
@@ -85,10 +70,9 @@ public class Server{
 		}
 	
 
-		class ClientThread extends Thread{
-			//String showing Player Information to the server
-			//String =
-		
+		class ClientThread extends Thread
+		{
+
 			Socket connection;
 			int count;
 			ObjectInputStream in;
@@ -121,24 +105,18 @@ public class Server{
 				catch(Exception e) {
 					System.out.println("Streams not open");
 				}
-				
-				//updateClients("new client on server: client #"+count);
-				PlayerInfo playerInfo	= new PlayerInfo(count);
-				
+								
 				 while(true) {
 					    try {
 
-							//Get PlayerInfo .in
+							
 							PlayerInfo data = (PlayerInfo)in.readObject();
 							data.setClientNum(clientInfo.get(this.count-1).clientNum);
 							clientInfo.set(this.count-1, data);
 
 							PlayerInfo currentInfo = clientInfo.get(this.count-1);
 
-							/**If the Number of Guesses if 6 (i.e. new category was chosen)
-							 * The Server will now chose a random word that the server needs to 
-							 * guess.
-							*/
+
 							if(currentInfo.numOfGuesses == 6)
 							{
 								switch(currentInfo.category)
@@ -163,10 +141,6 @@ public class Server{
 							callback.accept("");
 
 
-							/**TODO: Debugging Purposes 
-							data.setCategory("ITS Working Bruh");
-							clients.get(this.count-1).out.writeObject(data);
-							*/
 						}//End of the Try Statement
 						
 					    catch(Exception e) {

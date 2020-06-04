@@ -156,9 +156,7 @@ public class GameplayController {
     @FXML
     private void handleEnterPressed (KeyEvent event)
     {
-        
-            sendBtn.setDisable(false);
-        
+    	sendBtn.setDisable(false);   
     }
     
     
